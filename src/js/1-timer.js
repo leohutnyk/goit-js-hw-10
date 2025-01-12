@@ -1,11 +1,6 @@
-//с документации https://flatpickr.js.org/getting-started/
 import flatpickr from 'flatpickr';
-//есть в node_modules-подкл стили
 import 'flatpickr/dist/flatpickr.min.css';
-
-// Для відображення повідомлень
 import iziToast from 'izitoast';
-// Додатковий імпорт стилів
 import 'izitoast/dist/css/iziToast.min.css';
 
 const timerInput = document.querySelector('#datetime-picker');
@@ -22,24 +17,18 @@ let timerCalc = null;
 btnTimerInput.disabled = true;
 
 flatpickr('#datetime-picker', {
-  //вкл выбор времени
+  //вкл вибір часу
   enableTime: true,
 
-  //При включении отображает выбор времени в 24-часовом режиме без выбора AM/PM.
   time_24hr: true,
 
-  //Устанавливает начальную выбранную дату(ы).
-  //предоставить один объект Date или строку даты.
   defaultDate: new Date(),
 
-  //Регулирует шаг ввода минут (включая прокрутку)
   minuteIncrement: 1,
 
-  //Функция(и) для срабатывания каждый раз при закрытии календаря.
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
-    //вибрав дату в минулому
-    //кнопку «Start» не активною.
+
     if (userSelectedDate <= new Date()) {
       btnTimerInput.disabled = true;
       iziToast.error({
@@ -55,7 +44,6 @@ flatpickr('#datetime-picker', {
       });
     }
 
-    // дату в майбутньому, кнопка = активною.
     if (userSelectedDate > Date.now()) {
       btnTimerInput.disabled = false;
     }
@@ -80,7 +68,6 @@ btnTimerInput.addEventListener('click', () => {
       return;
     }
 
-    //конв числo => {дни/часы/мин/сек}
     const timeDiffConvert = convertMs(timeDiff);
 
     //оновлювати інтерфейс таймера,
@@ -92,7 +79,6 @@ btnTimerInput.addEventListener('click', () => {
   }, 1000);
 });
 
-//ф-ция конвертации: числo => {дни/часы/мин/сек}
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
