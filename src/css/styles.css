@@ -218,3 +218,7 @@ input[type='radio'] {
 .link {
   display: block;
 }
+.welcom {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
