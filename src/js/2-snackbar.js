@@ -1,46 +1,64 @@
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
+import flatpickr from 'flatpickr'; // Описаний в документації
+import 'flatpickr/dist/flatpickr.min.css'; // Додатковий імпорт стилів
+import iziToast from 'izitoast'; // Описаний у документації
+import 'izitoast/dist/css/iziToast.min.css'; // Додатковий імпорт стилів
 
 const form = document.querySelector('.form');
 
-iziToast.info({
-  title: 'Hello',
-  message: 'Welcome!',
-});
+form.addEventListener('submit', handleSubmit);
 
-form.addEventListener('submit', event => {
+function handleSubmit(event) {
   event.preventDefault();
 
-  const ms = Number(form.elements.delay.value);
+  const promiseState = event.target.elements.state.value; // отримуємо rejected або fulfilled
+  const delay = event.target.elements.delay.value;
 
-  const radioBtnVal = form.elements.state.value;
-
-  if (ms <= 0 || isNaN(ms)) {
-    iziToast.error({
-      message: 'Delay must be a positive number!',
-    });
-    return;
-  }
-
-  promise(ms, radioBtnVal)
-    .then(ms =>
-      iziToast.success({
-        message: `Fulfilled promise in ${ms}ms`,
-      })
-    )
-    .catch(err =>
-      iziToast.error({
-        message: `Rejected promise in ${ms}ms`,
-      })
-    );
-
-  form.reset();
-});
-
-function promise(ms, radioBtnVal) {
-  return new Promise((resolve, reject) => {
+  // створення
+  const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      radioBtnVal === 'fulfilled' ? resolve(ms) : reject(ms);
-    }, ms);
+      if (promiseState === 'fulfilled') {
+        resolve(delay); //проміс виконується
+      } else {
+        reject(delay); // проміс не виконується
+      }
+    }, delay);
+
+    event.currentTarget.reset();
   });
+
+  // обробка
+
+  promise
+    .then(data => {
+      iziToast.show({
+        theme: 'dark',
+        backgroundColor: '#B5EA7C',
+        title: '✅ Ок',
+        titleSize: '16px',
+        titleLineHeight: '24px',
+        titleColor: '#FFFFFF',
+        message: `Fulfilled promise in ${data} ms `,
+        messageSize: '16px',
+        messageLineHeight: '24px',
+        messageColor: '#FFFFFF',
+        position: 'topRight',
+        timeout: 10000,
+      });
+    })
+    .catch(error => {
+      iziToast.show({
+        theme: 'dark',
+        backgroundColor: '#EF4040',
+        title: '❌ Error',
+        titleSize: '16px',
+        titleLineHeight: '24px',
+        titleColor: '#FFFFFF',
+        message: ` Rejected promise in ${error} ms`,
+        messageSize: '16px',
+        messageLineHeight: '24px',
+        messageColor: '#FFFFFF',
+        position: 'topRight',
+        timeout: 10000,
+      });
+    });
 }

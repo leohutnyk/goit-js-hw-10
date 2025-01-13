@@ -8,64 +8,36 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <div class="container">
-    <header class="header">
+    
       <div class="container">
-        <nav class="nav">
-          <a class="nav-logo" href="./index.html" aria-label="Site logo">
-            <svg class="nav-logo-icon" width="100" height="30">
-              <use href="{=$icon-path}"></use>
-            </svg>
-          </a>
-          <ul class="nav-list">
-            <li class="nav-item">
-              <a class="nav-link {=$highlight-act}" href="./1-timer.html"
-                >Timer</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {=$highlight-curr}" href="./2-snackbar.html"
-                >Snackbar</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+        <a class="back-link" href="./index.html">Go back</a>
+          <h1 class="welcom"><b>Welcome to Timer</b></h1>
 
-    <main>
-      
-        <h1 class="main-title">Timer</h1>
-        <div class="container">
-       <div class="input-container">
-         <input class="timer-input" type="text" id="datetime-picker" />
-<button class="timer-input-btn" type="button" data-start>Start</button>
-
-       </div>
-
-<div class="timer">
-  <div class="field">
-    <span class="value" data-days>00</span>
-    <span class="label">Days</span>
-  </div>
-  <div class="field">
-    <span class="value" data-hours>00</span>
-    <span class="label">Hours</span>
-  </div>
-  <div class="field">
-    <span class="value" data-minutes>00</span>
-    <span class="label">Minutes</span>
-  </div>
-  <div class="field">
-    <span class="value" data-seconds>00</span>
-    <span class="label">Seconds</span>
-  </div>
-</div>
-
+        <input type="text" id="datetime-picker" />
+        <button type="button" data-start class="button">Start</button>
+        
+        <div class="timer">
+          <div class="field">
+            <span class="value" data-days>00</span>
+            <span class="label">Days</span>
+          </div>
+          <div class="field">
+            <span class="value" data-hours>00</span>
+            <span class="label">Hours</span>
+          </div>
+          <div class="field">
+            <span class="value" data-minutes>00</span>
+            <span class="label">Minutes</span>
+          </div>
+          <div class="field">
+            <span class="value" data-seconds>00</span>
+            <span class="label">Seconds</span>
+          </div>
         </div>
-       <a class="back-link" href="./index.html">Go back</a>
+
       </div>
     </main>
+
     <script type="module" src="./js/1-timer.js"></script>
   </body>
 </html>
